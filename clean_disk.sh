@@ -1,5 +1,6 @@
 #! /bin/bash
 
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 DISK=${1}
 
 if [[ `id -u` -ne 0 ]]
@@ -17,7 +18,7 @@ fi
 # Get Disk serial number
 SERIAL=`hdparm -I ${DISK}|grep "Serial Number"|tr -d ' '|cut -d: -f2`
 
-# Get exepected duration for secure erase
+# Get expected duration for secure erase
 EXPECTED_DURATION=`hdparm -I ${DISK}|grep "for SECURITY ERASE UNIT"|sed 's/min/:/'|cut -d: -f 1`
 
 # Check if disk is frozen
@@ -61,7 +62,7 @@ do
 done
 
 hdparm --user-master u --security-set-pass MyVerrySecretPassword ${DISK} >/dev/null 2>&1
-./progress_bar.sh $(( ${EXPECTED_DURATION} * 60 )) 70 "Secure erasing disk (est. duration ${EXPECTED_DURATION} min.): ${DISK}" &
+${SCRIPT_DIR}/progress_bar.sh $(( ${EXPECTED_DURATION} * 60 )) 70 "Secure erasing disk (est. duration ${EXPECTED_DURATION} min.): ${DISK}" &
 PPN_PROGRESS=$!
 hdparm --user-master u --security-erase-enhanced MyVerrySecretPassword ${DISK} >/dev/null 2>&1
 kill ${PN_PROGRESS}
