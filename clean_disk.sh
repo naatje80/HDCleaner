@@ -24,7 +24,7 @@ EXPECTED_DURATION=`hdparm -I ${DISK}|grep "for SECURITY ERASE UNIT"|sed 's/min/:
 NOT_FROZEN=`hdparm -I ${DISK}|grep "not[[:space:]]frozen"`
 
 echo "DEBUG: FROZEN STATE: \"${NOT_FROZEN}\"; SERIAL: ${SERIAL}; EXPECTED DURATION: ${EXPECTED_DURATION}"
-if [[ -z ${NOT_FROZE} ]]
+if [[ -z ${NOT_FROZEN} ]]
 then
 	echo ""
 	echo "!!!IMPORTANT!!! Drive needs to be \"unfronzen\". This system will be temporary suspended. Wait a couple of seconds, and manually start your system by pressing the power button."
