@@ -24,7 +24,9 @@ EXPECTED_DURATION=$(( `hdparm -I ${DISK}|grep "for SECURITY ERASE UNIT"|sed 's/m
 # Check if disk is frozen
 NOT_FROZEN=`hdparm -I ${DISK}|grep "not[[:space:]]frozen"`
 
-echo "DEBUG: FROZEN STATE: \"${NOT_FROZEN}\"; SERIAL: ${SERIAL}; EXPECTED DURATION: ${EXPECTED_DURATION}"
+# Uncomment for debugging
+#echo "DEBUG: FROZEN STATE: \"${NOT_FROZEN}\"; SERIAL: ${SERIAL}; EXPECTED DURATION: ${EXPECTED_DURATION}"
+
 if [[ -z ${NOT_FROZEN} ]]
 then
 	echo ""
