@@ -37,7 +37,7 @@ fi
 
 # Check if disk is no longer frozen
 NOT_FROZEN=`hdparm -I ${DISK}|grep "not[[:space:]]frozen"`
-if [[ -z ${NOT_FROZE} ]]
+if [[ -z ${NOT_FROZEN} ]]
 then
 	echo "ERROR: Unable to unfreeze the disk. Exiting..."
 	exit 1
