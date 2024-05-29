@@ -18,8 +18,7 @@ fi
 SERIAL=`hdparm -I ${DISK}|grep "Serial Number"|tr -d ' '|cut -d: -f2`
 
 # Get exepected duration for secure erase
-# Recalculate to minutes
-EXPECTED_DURATION=$(( `hdparm -I ${DISK}|grep "for SECURITY ERASE UNIT"|sed 's/min/:/'|cut -d: -f 1` * 60 ))
+EXPECTED_DURATION=`hdparm -I ${DISK}|grep "for SECURITY ERASE UNIT"|sed 's/min/:/'|cut -d: -f 1`
 
 # Check if disk is frozen
 NOT_FROZEN=`hdparm -I ${DISK}|grep "not[[:space:]]frozen"`
@@ -56,7 +55,7 @@ do
 done
 
 hdparm --user-master u --security-set-pass MyVerrySecretPassword ${DISK} >/dev/null 2>&1
-./progress_bar.sh ${EXPECTED_DURATION} 70 "Secure erasing disk: ${DISK}" &
+./progress_bar.sh $(( ${EXPECTED_DURATION} * 60 )) 70 "Secure erasing disk (est. duration ${EXPECTED_DURATION} min.}): ${DISK}" &
 PPN_PROGRESS=$!
 hdparm --user-master u --security-erase-enhanced MyVerrySecretPassword ${DISK} >/dev/null 2>&1
 kill ${PN_PROGRESS}
