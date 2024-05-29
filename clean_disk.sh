@@ -54,8 +54,14 @@ do
 	read -p "Provide the the serial number for the disk to continue (${SERIAL}): " INPUT
 done
 
+# Ensure that none of the partions on the disks are mounted
+for PARTITION `cat /etc/mtab|grep ${DISK}|tr -s ' '|cut -d ' ' -f 1`
+do
+	umount -f ${PARTITION}
+done
+
 hdparm --user-master u --security-set-pass MyVerrySecretPassword ${DISK} >/dev/null 2>&1
-./progress_bar.sh $(( ${EXPECTED_DURATION} * 60 )) 70 "Secure erasing disk (est. duration ${EXPECTED_DURATION} min.}): ${DISK}" &
+./progress_bar.sh $(( ${EXPECTED_DURATION} * 60 )) 70 "Secure erasing disk (est. duration ${EXPECTED_DURATION} min.): ${DISK}" &
 PPN_PROGRESS=$!
 hdparm --user-master u --security-erase-enhanced MyVerrySecretPassword ${DISK} >/dev/null 2>&1
 kill ${PN_PROGRESS}
