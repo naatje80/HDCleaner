@@ -31,7 +31,7 @@ then
 	echo "!!!IMPORTANT!!! Drive needs to be \"unfronzen\". This system will be temporary suspended. Wait a couple of seconds, and manually start your system by pressing the power button."
 	echo "Please ensure all your data is saved. (Press [Ctrl]+[C] to cancel)"
 	read -p "Press any key to continue..." INPUT
-	#echo -n "mem" > /sys/power/state
+	echo -n "mem" > /sys/power/state
 else
 	echo "Disk is not frozen, we should be able to proceed..."
 fi
