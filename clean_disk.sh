@@ -52,8 +52,10 @@ do
 	read -p "Provide the the serial number for the disk to continue (${SERIAL}): " INPUT
 done
 
-PN_PROGRESS=`./progress_bar.sh ${EXPECTED_DURATION} 70 "Secure erasing disk: ${DISK}"`
-hdparm --user-master HDMASTER --security-set-pass MyVerrySecretPassword ${DISK}
-hdparm --user-master HDMASTER --security-erase-enhanced MyVerrySecretPassword ${DISK}
+./progress_bar.sh ${EXPECTED_DURATION} 70 "Secure erasing disk: ${DISK}" &
+PPN_PROGRESS=$!
+
+hdparm --user-master u --security-set-pass MyVerrySecretPassword ${DISK}
+hdparm --user-master u --security-erase-enhanced MyVerrySecretPassword ${DISK}
 kill ${PN_PROGRESS}
 partprobe ${DISK}
