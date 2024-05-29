@@ -49,7 +49,7 @@ INPUT="BOGUS"
 while [[ ${SERIAL} != ${INPUT} ]]
 do
 	echo ""
-	echo "!!!VERRY VERRY IMPORTANT!!!: The disk will now be securly erased. All data will be permanently losed!!!!"
+	echo "!!!VERRY VERRY IMPORTANT!!!: The disk will now be securly erased. All data will be permanently lost!!!!"
 	echo "Press [Ctrl]+[C] to discontinue!"
 	read -p "Provide the the serial number for the disk to continue (${SERIAL}): " INPUT
 done
