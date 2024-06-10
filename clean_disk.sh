@@ -56,7 +56,7 @@ do
 done
 
 # Ensure that none of the partions on the disks are mounted
-for PARTITION `cat /etc/mtab|grep ${DISK}|tr -s ' '|cut -d ' ' -f 1`
+for PARTITION in `cat /etc/mtab|grep ${DISK}|tr -s ' '|cut -d ' ' -f 1`
 do
 	umount -f ${PARTITION}
 done
