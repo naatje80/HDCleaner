@@ -24,7 +24,7 @@ then
 	DURATION=`nvme sanitize-log ${1}|grep 'Estimated Time For Block Erase'|tr -d ' '|cut -d: -f2`
 elif [[ ${FORM_CE_SUPPORTED} -eq 1 ]]
 then
-	if [[ `nvme id-ctrl ${1} -H|grep -E 'Format Applies to Single Namespace\(s\)|Crypto Erase Applies to Single Namespace\(s\)'|grep -c -v '0x1'` -eq 1 ]]
+	if [[ `nvme id-ctrl ${1} -H|grep -E 'Format Applies to Single Namespace\(s\)|Crypto Erase Applies to Single Namespace\(s\)'|grep -c -v '0x1'` -eq 2 ]]
 	then
 		ERASE_COMMAND="nvme format ${1} -s 2 -n 1"
 	fi
