@@ -62,8 +62,9 @@ do
 done
 
 hdparm --user-master u --security-set-pass MyVerrySecretPassword ${DISK} >/dev/null 2>&1
+sleep 3 # Need to wait before actual erase could be executed
 ${SCRIPT_DIR}/progress_bar.sh $(( ${EXPECTED_DURATION} * 60 )) 70 "Secure erasing disk (est. duration ${EXPECTED_DURATION} min.): ${DISK}" &
-PPN_PROGRESS=$!
+PN_PROGRESS=$!
 hdparm --user-master u --security-erase-enhanced MyVerrySecretPassword ${DISK} >/dev/null 2>&1
 kill ${PN_PROGRESS}
 partprobe ${DISK}
