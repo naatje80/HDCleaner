@@ -32,4 +32,4 @@ else
 	ERASE_COMMAND="blkdiscard --secure ${1} --force || blkdiscard --zeroout ${1} --force"
 fi
 
-${ERASE_COMMAND}
+eval ${ERASE_COMMAND}
