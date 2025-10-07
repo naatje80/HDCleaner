@@ -33,3 +33,7 @@ else
 fi
 
 eval ${ERASE_COMMAND}
+
+# Reload kernel module do detect erased device
+modprobe -r nvme
+modprobe nvm
