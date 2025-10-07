@@ -29,7 +29,7 @@ then
 		ERASE_COMMAND="nvme format ${1} -s 2 -n 1"
 	fi
 else
-	ERASE_COMMAND="blkdiscard --secure ${1} -f|blkdiskcard --zeroout /${1} -f"
+	ERASE_COMMAND="blkdiscard --secure ${1} --force || blkdiscard --zeroout ${1} --force"
 fi
 
 ${ERASE_COMMAND}
